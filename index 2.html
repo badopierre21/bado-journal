@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#15171c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f4f7" media="(prefers-color-scheme: light)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Bado Journal</title>
+<style>
+:root{--bg:#15171c;--card:#1e2128;--tx:#e9ecf1;--mu:#8a91a0;--g:#2fd39b;--gb:#123a31;--r:#ff4d7d;--n:#2a2e38;--rb:#40192a;box-sizing:border-box}
+@media (prefers-color-scheme:light){:root{--bg:#f3f4f7;--card:#fff;--tx:#161922;--mu:#6b7280;--g:#0a9d6f;--gb:#d6f5e9;--r:#d62456;--n:#e6e8ee;--rb:#fde0e8}}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:"Segoe UI",system-ui,-apple-system,sans-serif}
+body{min-height:100vh;padding:calc(18px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px))}
+.c{max-width:520px;margin:0 auto}
+.logo{width:64px;height:64px;border-radius:18px;background:var(--g);color:#06231a;font-size:34px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:18px 0 12px}
+h1{font-size:26px;margin:6px 0 8px}h2{font-size:18px;margin:18px 0 6px}
+p{line-height:1.45;margin:6px 0 14px}.mu{color:var(--mu)}.s{font-size:13px}
+.b,.b2{display:block;width:100%;padding:15px;border-radius:14px;border:0;font-size:16px;font-weight:600;font-family:inherit;margin-top:10px;text-align:center}
+.b{background:var(--g);color:#06231a}.b2{background:var(--card);color:var(--tx)}
+.b:disabled{opacity:.5}
+.lnk{background:none;border:0;color:var(--mu);font-family:inherit;font-size:14px;padding:12px 4px;text-decoration:underline}
+input[type=text]{width:100%;padding:14px;border-radius:12px;border:1px solid var(--n);background:var(--card);color:var(--tx);font-size:17px;font-family:inherit}
+.ch{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.ch button{padding:10px 14px;border-radius:999px;border:1px solid var(--n);background:var(--card);color:var(--tx);font-size:14px;font-family:inherit}
+.ch button.a{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.row{display:flex;gap:8px;margin-top:8px}.row input{flex:1}.row .b2{width:auto;margin:0;padding:0 18px}
+.card{background:var(--card);border-radius:14px;padding:14px;margin-top:10px;width:100%;border:0;text-align:left;color:var(--tx);font-family:inherit;display:block}
+.card b{font-size:16px}.card small{display:block;color:var(--mu);margin-top:3px}
+.err{background:#40192a;color:var(--r);border-radius:12px;padding:10px 12px;font-size:13px;margin:10px 0;word-break:break-word}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.top .lnk{padding:6px 0;text-decoration:none;font-size:16px}
+.fab{position:fixed;right:18px;bottom:calc(20px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;border:0;background:var(--g);color:#06231a;font-size:30px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.ft{display:flex;gap:6px;justify-content:center;margin-top:26px}
+.dots{display:flex;gap:6px;margin:4px 0 14px}.dots i{height:4px;flex:1;border-radius:2px;background:var(--n)}.dots i.a{background:var(--g)}
+.tabs{display:flex;gap:6px;margin:10px 0 12px}
+.tabs button{flex:1;padding:10px 4px;border-radius:12px;border:0;background:var(--card);color:var(--mu);font-size:18px;font-family:inherit}
+.tabs button.a{background:var(--tx);color:var(--bg)}
+.mn{display:flex;align-items:center;justify-content:space-between;margin:6px 0}
+.mn button{background:var(--card);color:var(--tx);border:0;border-radius:10px;width:42px;height:42px;font-size:20px}
+.mn b{text-transform:capitalize;font-size:18px}
+.tot{font-size:32px;font-weight:700;margin:4px 0}.g{color:var(--g)}.r{color:var(--r)}
+.st{color:var(--mu);font-size:13px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.dh{text-align:center;color:var(--mu);font-size:12px;padding:2px 0}
+.cell{min-height:60px;border-radius:8px;background:var(--n);padding:4px;font-size:10px;color:var(--mu);border:0;text-align:left;font-family:inherit;display:flex;flex-direction:column;justify-content:space-between}
+.cell.e{background:transparent}.cell.w{background:var(--gb);color:var(--g)}.cell.l{background:var(--rb);color:var(--r)}.cell.t{outline:2px solid var(--tx)}
+.cell b{font-size:12px;align-self:center}
+.sh{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+.pn{background:var(--card);width:100%;max-width:560px;border-radius:18px 18px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom,0px));max-height:92vh;overflow-y:auto}
+.pn input[type=text],.pn textarea{background:var(--bg)}
+textarea{width:100%;padding:14px;border-radius:12px;border:1px solid var(--n);background:var(--card);color:var(--tx);font-size:16px;font-family:inherit;min-height:80px;resize:vertical}
+label{display:block;font-size:13px;color:var(--mu);margin:14px 0 4px}
+.seg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:6px 0 10px}
+.seg button{padding:12px;border-radius:12px;border:2px solid var(--n);background:transparent;color:var(--tx);font-size:15px;font-family:inherit}
+.seg button.a.gain{border-color:var(--g);background:var(--gb)}.seg button.a.loss{border-color:var(--r);background:var(--rb)}.seg button.a.be{border-color:var(--mu);background:var(--n)}
+.ac{display:flex;gap:8px;margin-top:16px}.ac .b,.ac .b2{margin-top:0}
+.tr{display:block;width:100%;text-align:left;background:var(--bg);border:0;border-radius:12px;padding:12px;margin-top:8px;color:var(--tx);font-family:inherit}
+.tr .a{font-weight:700;font-size:16px}.tr small{display:block;color:var(--mu);margin-top:3px;font-size:12px}
+</style>
+</head>
+<body>
+<div id="app"><div class="c"><div class="logo">B</div><p class="mu">…</p></div></div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, addDoc, collection, getDocs, query, orderBy, arrayUnion, arrayRemove, where, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCXjDI4de5a4wbt_yZ3HBBwQIvwWL0bWwY",
+  authDomain: "bado-journal.firebaseapp.com",
+  projectId: "bado-journal",
+  storageBucket: "bado-journal.firebasestorage.app",
+  messagingSenderId: "196222543787",
+  appId: "1:196222543787:web:4a9b58f05adbe84e24d4ee"
+};
+const fb = initializeApp(firebaseConfig);
+const auth = getAuth(fb), db = getFirestore(fb);
+
+/* ---------- Textes (FR / EN / ES) ---------- */
+const LANGS = [["fr","🇫🇷","Français"],["en","🇬🇧","English"],["es","🇪🇸","Español"]];
+const T = {
+fr:{cont:"Continuer",back:"Retour",create:"Créer le journal",
+ wTitle:"Bienvenue sur Bado Journal",wText:"Un journal de trading simple pour devenir plus discipliné. Chaque trade noté te rapproche de la constance.",google:"Continuer avec Google",
+ qName:"Quel est ton nom complet ?",nameReq:"Entre ton nom pour continuer.",namePh:"Nom complet",
+ qWhy:"Pourquoi tu trades ?",qWhat:"Que trades-tu ?",multi:"Tu peux en choisir plusieurs.",all:"Tout",
+ why_learn:"Apprendre",why_income:"Revenu complémentaire",why_passion:"Passion",why_disc:"Devenir discipliné",why_other:"Autre",
+ m_forex:"💱 Forex",m_crypto:"🪙 Cryptomonnaies",m_metals:"🥇 Métaux précieux",m_comm:"🛢️ Matières premières",m_indices:"📈 Indices boursiers",m_stocks:"🏢 Actions",m_deriv:"📜 Obligations et dérivés (futures, options, CFD, binaire)",
+ hello:"Salut",home:"Mes journaux",empty:"Aucun journal pour le moment. Appuie sur ➕ pour créer le premier.",
+ jNew:"Nouveau journal",jName:"Comment veux-tu l'appeler ?",jNamePh:"Ex : Mon journal forex",jNameReq:"Donne un nom au journal.",
+ jPairs:"Quelles paires ou quels actifs tu trades ?",jConfs:"Quelles sont tes confluences ?",jPh:"Ajouter la tienne",add:"Ajouter",
+ pairs:"Paires",confs:"Confluences",jNext:"Le calendrier et les onglets 💰📮📊🧾 arrivent à l'étape suivante.",
+ lang:"Langue",logout:"Se déconnecter",retry:"Réessayer",
+ eperm:"Permission refusée : les règles Firestore ne sont pas encore publiées.",edom:"Domaine non autorisé : ajoute-le dans Firebase → Authentication → Paramètres → Domaines autorisés.",eoff:"Pas de connexion internet."},
+en:{cont:"Continue",back:"Back",create:"Create journal",
+ wTitle:"Welcome to Bado Journal",wText:"A simple trading journal to become more disciplined. Every trade you log brings you closer to consistency.",google:"Continue with Google",
+ qName:"What is your full name?",nameReq:"Enter your name to continue.",namePh:"Full name",
+ qWhy:"Why do you trade?",qWhat:"What do you trade?",multi:"You can pick several.",all:"Everything",
+ why_learn:"Learn",why_income:"Extra income",why_passion:"Passion",why_disc:"Become disciplined",why_other:"Other",
+ m_forex:"💱 Forex",m_crypto:"🪙 Crypto",m_metals:"🥇 Precious metals",m_comm:"🛢️ Commodities",m_indices:"📈 Stock indices",m_stocks:"🏢 Stocks",m_deriv:"📜 Bonds and derivatives (futures, options, CFD, binary)",
+ hello:"Hi",home:"My journals",empty:"No journal yet. Tap ➕ to create your first one.",
+ jNew:"New journal",jName:"What do you want to call it?",jNamePh:"E.g. My forex journal",jNameReq:"Give your journal a name.",
+ jPairs:"Which pairs or assets do you trade?",jConfs:"What are your confluences?",jPh:"Add your own",add:"Add",
+ pairs:"Pairs",confs:"Confluences",jNext:"The calendar and the 💰📮📊🧾 tabs come in the next step.",
+ lang:"Language",logout:"Log out",retry:"Try again",
+ eperm:"Permission denied: Firestore rules are not published yet.",edom:"Unauthorized domain: add it in Firebase → Authentication → Settings → Authorized domains.",eoff:"No internet connection."},
+es:{cont:"Continuar",back:"Atrás",create:"Crear diario",
+ wTitle:"Bienvenido a Bado Journal",wText:"Un diario de trading simple para ser más disciplinado. Cada trade anotado te acerca a la constancia.",google:"Continuar con Google",
+ qName:"¿Cuál es tu nombre completo?",nameReq:"Escribe tu nombre para continuar.",namePh:"Nombre completo",
+ qWhy:"¿Por qué haces trading?",qWhat:"¿Qué operas?",multi:"Puedes elegir varios.",all:"Todo",
+ why_learn:"Aprender",why_income:"Ingreso extra",why_passion:"Pasión",why_disc:"Ser disciplinado",why_other:"Otro",
+ m_forex:"💱 Forex",m_crypto:"🪙 Criptomonedas",m_metals:"🥇 Metales preciosos",m_comm:"🛢️ Materias primas",m_indices:"📈 Índices bursátiles",m_stocks:"🏢 Acciones",m_deriv:"📜 Bonos y derivados (futuros, opciones, CFD, binarias)",
+ hello:"Hola",home:"Mis diarios",empty:"Aún no hay diarios. Toca ➕ para crear el primero.",
+ jNew:"Nuevo diario",jName:"¿Cómo quieres llamarlo?",jNamePh:"Ej: Mi diario de forex",jNameReq:"Ponle un nombre al diario.",
+ jPairs:"¿Qué pares o activos operas?",jConfs:"¿Cuáles son tus confluencias?",jPh:"Añade la tuya",add:"Añadir",
+ pairs:"Pares",confs:"Confluencias",jNext:"El calendario y las pestañas 💰📮📊🧾 llegan en el siguiente paso.",
+ lang:"Idioma",logout:"Cerrar sesión",retry:"Reintentar",
+ eperm:"Permiso denegado: las reglas de Firestore aún no están publicadas.",edom:"Dominio no autorizado: añádelo en Firebase → Authentication → Configuración → Dominios autorizados.",eoff:"Sin conexión a internet."}
+};
+Object.assign(T.fr,{cal:"Calendrier",soon:"Bientôt disponible",tradesN:"trades",wonN:"gagnés",gD:"jours verts",rD:"jours rouges",noTr:"Aucun trade ce jour",addTr:"+ Ajouter un trade",close:"Fermer",newTr:"Nouveau trade",editTr:"Modifier le trade",pair:"Paire",res:"Résultat",gain:"Gain",loss:"Perte",be:"BE",amt:"Montant",stake:"Mise (facultatif)",conf:"Confluence",cfa:"Confirmation (CFA)",note:"Analyse",save:"Enregistrer",del:"Supprimer",delAsk:"Appuie encore pour supprimer",cancel:"Annuler",amtReq:"Entre un montant.",cfg:"Paires et confluences",rmHint:"Appuie sur × pour retirer.",phCfa:"Quelle confirmation as-tu trouvée ?",phNote:"Pourquoi tu entres, ce que tu apprends…",t_acc:"Compte",t_goal:"Objectifs",t_chart:"Courbe",t_plan:"Discipline"});
+Object.assign(T.en,{cal:"Calendar",soon:"Coming soon",tradesN:"trades",wonN:"won",gD:"green days",rD:"red days",noTr:"No trades this day",addTr:"+ Add a trade",close:"Close",newTr:"New trade",editTr:"Edit trade",pair:"Pair",res:"Result",gain:"Win",loss:"Loss",be:"BE",amt:"Amount",stake:"Stake (optional)",conf:"Confluence",cfa:"Confirmation",note:"Analysis",save:"Save",del:"Delete",delAsk:"Tap again to delete",cancel:"Cancel",amtReq:"Enter an amount.",cfg:"Pairs and confluences",rmHint:"Tap × to remove.",phCfa:"Which confirmation did you find?",phNote:"Why you enter, what you learn…",t_acc:"Account",t_goal:"Goals",t_chart:"Curve",t_plan:"Discipline"});
+Object.assign(T.es,{cal:"Calendario",soon:"Próximamente",tradesN:"trades",wonN:"ganados",gD:"días verdes",rD:"días rojos",noTr:"Sin trades este día",addTr:"+ Añadir un trade",close:"Cerrar",newTr:"Nuevo trade",editTr:"Editar trade",pair:"Par",res:"Resultado",gain:"Ganancia",loss:"Pérdida",be:"BE",amt:"Monto",stake:"Apuesta (opcional)",conf:"Confluencia",cfa:"Confirmación",note:"Análisis",save:"Guardar",del:"Eliminar",delAsk:"Toca otra vez para eliminar",cancel:"Cancelar",amtReq:"Escribe un monto.",cfg:"Pares y confluencias",rmHint:"Toca × para quitar.",phCfa:"¿Qué confirmación encontraste?",phNote:"Por qué entras, qué aprendes…",t_acc:"Cuenta",t_goal:"Objetivos",t_chart:"Curva",t_plan:"Disciplina"});
+const WHY=["learn","income","passion","disc","other"];
+const MK=["forex","crypto","metals","comm","indices","stocks","deriv"];
+const PAIRS={forex:["EURUSD","GBPUSD","USDJPY","AUDUSD","USDCAD","USDCHF","NZDUSD","EURJPY","GBPJPY"],crypto:["BTCUSD","ETHUSD","SOLUSD","XRPUSD","BNBUSD"],metals:["XAUUSD","XAGUSD"],comm:["USOIL","UKOIL","NATGAS","COPPER"],indices:["NAS100","US500","US30","GER40","JP225"],stocks:["AAPL","NVDA","TSLA","AMZN","MSFT"],deriv:[]};
+const CONFS=["OB","FVG","IMBALANCE","DOJI","MARTEAU","BOS","CHOCH","RS","SP","MV"];
+
+/* ---------- État ---------- */
+const S={screen:"boot",lang:localStorage.getItem("bado_lang")||"",user:null,profile:null,journals:[],draft:{},cur:null,err:"",fromHome:false,tab:"cal",month:null,trades:[],sheet:null};
+const t=k=>(T[S.lang]||T.fr)[k]||T.fr[k]||k;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $app=document.getElementById("app");
+const go=(s)=>{S.screen=s;S.err="";render()};
+const errBox=()=>{if(!S.err)return"";const c=S.err,h=c.includes("permission-denied")?t("eperm"):c.includes("unauthorized-domain")?t("edom"):c.includes("offline")||c.includes("network")?t("eoff"):"";return `<div class="err">${esc(h?h+" ":"")}<small>(${esc(c)})</small></div>`};
+const toggle=(arr,v)=>{const i=arr.indexOf(v);if(i>-1)arr.splice(i,1);else arr.push(v)};
+const chips=(items,sel,act,label)=>`<div class="ch">${items.map(v=>`<button class="${sel.includes(v)?"a":""}" data-a="${act}" data-v="${esc(v)}">${esc(label?label(v):v)}</button>`).join("")}</div>`;
+const dots=(n,of)=>`<div class="dots">${Array.from({length:of},(_,i)=>`<i class="${i<n?"a":""}"></i>`).join("")}</div>`;
+const suggestPairs=()=>{const m=(S.profile&&S.profile.markets)||[];const ks=(m.includes("all")||!m.length)?Object.keys(PAIRS):m;return[...new Set(ks.flatMap(k=>PAIRS[k]||[]))]};
+const curJ=()=>S.journals.find(j=>j.id===S.cur);
+
+/* ---------- Écrans ---------- */
+const V={
+boot:()=>`<div class="c"><div class="logo">B</div><p class="mu">…</p></div>`,
+error:()=>`<div class="c"><div class="logo">B</div>${errBox()}<button class="b" data-a="reload">${t("retry")}</button></div>`,
+lang:()=>`<div class="c"><div class="logo">B</div><h1>Bado Journal</h1><p class="mu">Choisis ta langue · Choose your language · Elige tu idioma</p>${LANGS.map(l=>`<button class="b2" data-a="setLang" data-v="${l[0]}">${l[1]}&nbsp; ${l[2]}</button>`).join("")}</div>`,
+welcome:()=>`<div class="c"><div class="logo">B</div><h1>${t("wTitle")}</h1><p class="mu">${t("wText")}</p>${errBox()}<button class="b" data-a="google">${t("google")}</button><div class="ft"><button class="lnk" data-a="toLang">🌐 ${t("lang")}</button></div></div>`,
+name:()=>`<div class="c">${dots(1,3)}<h1>${t("qName")}</h1>${errBox()}<input type="text" id="inName" data-f="name" value="${esc(S.draft.name||"")}" placeholder="${t("namePh")}" autocomplete="name"><button class="b" data-a="toWhy">${t("cont")}</button></div>`,
+why:()=>`<div class="c">${dots(2,3)}<h1>${t("qWhy")}</h1><p class="mu s">${t("multi")}</p>${chips(WHY,S.draft.why,"tgWhy",v=>t("why_"+v))}<button class="b" data-a="toWhat">${t("cont")}</button><button class="lnk" data-a="toName">${t("back")}</button></div>`,
+what:()=>`<div class="c">${dots(3,3)}<h1>${t("qWhat")}</h1><p class="mu s">${t("multi")}</p>${errBox()}${chips(["all",...MK],S.draft.markets,"tgMk",v=>v==="all"?"✨ "+t("all"):t("m_"+v))}<button class="b" data-a="saveProfile">${t("cont")}</button><button class="lnk" data-a="toWhy">${t("back")}</button></div>`,
+home:()=>{const n=(S.profile&&S.profile.name||"").split(" ")[0];return `<div class="c"><div class="top"><div class="logo" style="margin:0;width:44px;height:44px;font-size:24px;border-radius:12px">B</div></div><h1>${t("hello")}${n?" "+esc(n):""} 👋</h1><h2>${t("home")}</h2>${errBox()}${S.journals.length?S.journals.map(j=>`<button class="card" data-a="openJ" data-v="${esc(j.id)}"><b>${esc(j.name)}</b><small>${(j.pairs||[]).length} ${t("pairs").toLowerCase()} · ${(j.confs||[]).length} ${t("confs").toLowerCase()}</small></button>`).join(""):`<p class="mu">${t("empty")}</p>`}<div class="ft"><button class="lnk" data-a="toLangHome">🌐 ${t("lang")}</button><button class="lnk" data-a="logout">${t("logout")}</button></div><button class="fab" data-a="newJ" aria-label="${t("jNew")}">+</button></div>`},
+nj1:()=>`<div class="c">${dots(1,3)}<h1>${t("jNew")}</h1><h2>${t("jName")}</h2>${errBox()}<input type="text" id="inJ" data-f="jname" value="${esc(S.draft.j.name)}" placeholder="${t("jNamePh")}"><button class="b" data-a="nj2">${t("cont")}</button><button class="lnk" data-a="toHome">${t("back")}</button></div>`,
+nj2:()=>{const j=S.draft.j,all=[...new Set([...suggestPairs(),...j.pairs])];return `<div class="c">${dots(2,3)}<h1>${t("jPairs")}</h1>${chips(all,j.pairs,"tgPair")}<div class="row"><input type="text" id="cx" placeholder="${t("jPh")}" maxlength="16"><button class="b2" data-a="addDraft" data-v="pairs">${t("add")}</button></div><button class="b" data-a="nj3">${t("cont")}</button><button class="lnk" data-a="nj1">${t("back")}</button></div>`},
+nj3:()=>{const j=S.draft.j,all=[...new Set([...CONFS,...j.confs])];return `<div class="c">${dots(3,3)}<h1>${t("jConfs")}</h1>${errBox()}${chips(all,j.confs,"tgConf")}<div class="row"><input type="text" id="cx" placeholder="${t("jPh")}" maxlength="16"><button class="b2" data-a="addDraft" data-v="confs">${t("add")}</button></div><button class="b" data-a="createJ">${t("create")}</button><button class="lnk" data-a="nj2">${t("back")}</button></div>`},
+journal:()=>{const j=curJ();if(!j)return V.home();
+ const TABS=[["cal","📅"],["acc","💰"],["goal","📮"],["chart","📊"],["plan","🧾"]];
+ return `<div class="c"><div class="top"><button class="lnk" data-a="toHome">‹ ${t("back")}</button><button class="lnk" data-a="openCfg" aria-label="${t("cfg")}">⚙</button></div><h1 style="font-size:22px;margin:0 0 2px">${esc(j.name)}</h1><div class="tabs">${TABS.map(x=>`<button class="${S.tab===x[0]?"a":""}" data-a="tab" data-v="${x[0]}">${x[1]}</button>`).join("")}</div>${S.sheet?"":errBox()}${S.tab==="cal"?calHtml(j):`<div class="card"><b>${TABS.find(x=>x[0]===S.tab)[1]} ${t("t_"+S.tab)}</b><small>${t("soon")}</small></div>`}</div>${sheetHtml(j)}`}
+};
+const pad=n=>String(n).padStart(2,"0");
+const ymd=(y,m,d)=>y+"-"+pad(m+1)+"-"+pad(d);
+const todayS=()=>{const d=new Date();return ymd(d.getFullYear(),d.getMonth(),d.getDate())};
+const nowMonth=()=>{const d=new Date();return{y:d.getFullYear(),m:d.getMonth()}};
+const money=(v,c)=>(v>0?"+":v<0?"-":"")+(c||"$")+Math.abs(Math.round(v*100)/100).toLocaleString(S.lang||"fr");
+const cls=v=>v>0?"g":v<0?"r":"";
+const splitItems=(s,k)=>String(s).split(k==="pairs"?/[\s,;]+/:/[,;\n]+/).map(x=>clean(x,k)).filter(Boolean);
+const rmChips=(arr,k)=>`<div class="ch">${(arr||[]).map(v=>`<button data-a="rmItem" data-k="${k}" data-v="${esc(v)}">${esc(v)} ×</button>`).join("")}</div>`;
+function calHtml(j){const {y,m}=S.month,cur=j.cur||"$",dim=new Date(y,m+1,0).getDate(),off=(new Date(y,m,1).getDay()+6)%7,by={};
+ S.trades.forEach(x=>{(by[x.date]=by[x.date]||[]).push(x)});
+ let tot=0,n=0,w=0,gd=0,rd=0,cells="";const L=S.lang||"fr",td=todayS();
+ for(let i=0;i<7;i++)cells+=`<div class="dh">${new Date(2024,0,1+i).toLocaleDateString(L,{weekday:"narrow"})}</div>`;
+ for(let i=0;i<off;i++)cells+='<div class="cell e"></div>';
+ for(let d=1;d<=dim;d++){const k=ymd(y,m,d),a=by[k]||[];let c="cell",body="<b></b><small></small>";
+  if(a.length){const sm=a.reduce((q,x)=>q+x.p,0);tot+=sm;n+=a.length;w+=a.filter(x=>x.p>0).length;if(sm>0){gd++;c+=" w"}else if(sm<0){rd++;c+=" l"}
+   body=`<b>${a.every(x=>x.be)?"BE":money(sm,cur)}</b><small>${a.length}</small>`}
+  if(k===td)c+=" t";
+  cells+=`<button class="${c}" data-a="openDay" data-v="${k}"><span>${d}</span>${body}</button>`}
+ const title=new Date(y,m,1).toLocaleDateString(L,{month:"long",year:"numeric"});
+ return `<div class="mn"><button data-a="mon" data-v="-1">‹</button><b>${esc(title)}</b><button data-a="mon" data-v="1">›</button></div><div class="tot ${cls(tot)}">${money(tot,cur)}</div><div class="st">${n} ${t("tradesN")} (${w} ${t("wonN")}) · ${gd} ${t("gD")} · ${rd} ${t("rD")}</div><div class="grid">${cells}</div>`}
+function sheetHtml(j){const sh=S.sheet;if(!sh)return"";
+ if(sh.type==="cfg")return `<div class="sh"><div class="pn"><h2 style="margin-top:0">${t("cfg")}</h2><p class="mu s">${t("rmHint")}</p>${errBox()}<h2>${t("pairs")}</h2>${rmChips(j.pairs,"pairs")}<div class="row"><input type="text" id="cx" placeholder="${t("jPh")}"><button class="b2" data-a="addJ" data-v="pairs">${t("add")}</button></div><h2>${t("confs")}</h2>${rmChips(j.confs,"confs")}<div class="row"><input type="text" id="cy" placeholder="${t("jPh")}"><button class="b2" data-a="addJ" data-v="confs">${t("add")}</button></div><button class="b2" data-a="closeSheet">${t("close")}</button></div></div>`;
+ const cur=j.cur||"$",dt=new Date(sh.d+"T00:00:00").toLocaleDateString(S.lang||"fr",{weekday:"long",day:"numeric",month:"long"});
+ if(sh.view==="form"){const f=sh.draft;
+  return `<div class="sh"><div class="pn"><p class="mu s" style="margin:0;text-transform:capitalize">${esc(dt)}</p><h2 style="margin-top:2px">${sh.id?t("editTr"):t("newTr")}</h2>${errBox()}<label>${t("pair")}</label>${chips(j.pairs||[],f.pair?[f.pair]:[],"tgP")}<label>${t("res")}</label><div class="seg">${["gain","loss","be"].map(k=>`<button class="${f.res===k?"a "+k:""}" data-a="res" data-v="${k}">${t(k)}</button>`).join("")}</div><input type="text" inputmode="decimal" data-f="amt" value="${esc(f.amt)}" placeholder="${f.res==="be"?t("stake"):t("amt")}"><label>${t("conf")}</label>${chips(j.confs||[],f.c,"tgC")}<label>${t("cfa")}</label><input type="text" data-f="cfa" value="${esc(f.cfa)}" placeholder="${t("phCfa")}"><label>${t("note")}</label><textarea data-f="note" placeholder="${t("phNote")}">${esc(f.note)}</textarea><div class="ac"><button class="b2" data-a="backList">${t("cancel")}</button>${sh.id?`<button class="b2" data-a="delTrade" style="color:var(--r)">${sh.cd===sh.id?t("delAsk"):t("del")}</button>`:""}<button class="b" data-a="saveTrade">${t("save")}</button></div></div></div>`}
+ const list=S.trades.filter(x=>x.date===sh.d),sm=list.reduce((q,x)=>q+x.p,0);
+ return `<div class="sh"><div class="pn"><h2 style="margin:0;text-transform:capitalize">${esc(dt)}</h2><div class="tot ${cls(sm)}" style="font-size:24px">${money(sm,cur)}</div>${list.length?list.map((x,i)=>`<button class="tr" data-a="editTrade" data-v="${esc(x.id)}"><span class="a ${x.be?"":cls(x.p)}">#${i+1} ${esc(x.pair||"")} ${x.be?"BE":money(x.p,cur)}</span>${(x.c&&x.c.length)||x.cfa?`<small>${esc((x.c||[]).join(" + "))}${x.cfa?" · "+esc(x.cfa):""}</small>`:""}</button>`).join(""):`<p class="mu">${t("noTr")}</p>`}<button class="b" data-a="addTrade">${t("addTr")}</button><button class="b2" data-a="closeSheet">${t("close")}</button></div></div>`}
+function render(){document.documentElement.lang=S.lang||"fr";$app.innerHTML=(V[S.screen]||V.boot)()}
+
+/* ---------- Données ---------- */
+const uref=()=>doc(db,"users",S.user.uid);
+async function loadJournals(){const q=query(collection(db,"users",S.user.uid,"journals"),orderBy("createdAt","desc"));const s=await getDocs(q);S.journals=s.docs.map(d=>({id:d.id,...d.data()}))}
+const run=async fn=>{try{await fn()}catch(e){S.err=e.code||e.message||String(e);render()}};
+
+/* ---------- Actions ---------- */
+const A={
+reload:()=>location.reload(),
+setLang:async d=>{S.lang=d.v;localStorage.setItem("bado_lang",S.lang);if(S.user&&S.profile){S.profile.lang=S.lang;go("home");updateDoc(uref(),{lang:S.lang}).catch(()=>{})}else go(S.user?"name":"welcome")},
+toLang:()=>go("lang"),toLangHome:()=>go("lang"),toHome:()=>go("home"),
+google:async()=>{const p=new GoogleAuthProvider();try{await signInWithPopup(auth,p)}catch(e){if(e.code==="auth/popup-blocked"||e.code==="auth/operation-not-supported-in-this-environment"){await signInWithRedirect(auth,p)}else if(e.code!=="auth/popup-closed-by-user"&&e.code!=="auth/cancelled-popup-request"){throw e}}},
+toName:()=>go("name"),
+toWhy:()=>{const v=$app.querySelector("#inName");if(v)S.draft.name=v.value;if(!(S.draft.name||"").trim()){S.err=t("nameReq");return render()}go("why")},
+toWhat:()=>go("what"),
+tgWhy:d=>{toggle(S.draft.why,d.v);render()},
+tgMk:d=>{const m=S.draft.markets;if(d.v==="all"){S.draft.markets=m.includes("all")?[]:["all"]}else{const i=m.indexOf("all");if(i>-1)m.splice(i,1);toggle(S.draft.markets,d.v)}render()},
+saveProfile:async()=>{const p={name:S.draft.name.trim(),why:S.draft.why,markets:S.draft.markets,lang:S.lang||"fr",createdAt:serverTimestamp()};await setDoc(uref(),p);S.profile={...p};await loadJournals();go("home")},
+newJ:()=>{S.draft.j={name:"",pairs:[],confs:[]};go("nj1")},
+nj1:()=>go("nj1"),
+nj2:()=>{const v=$app.querySelector("#inJ");if(v)S.draft.j.name=v.value;if(!S.draft.j.name.trim()){S.err=t("jNameReq");return render()}go("nj2")},
+nj3:()=>go("nj3"),
+tgPair:d=>{toggle(S.draft.j.pairs,d.v);render()},
+tgConf:d=>{toggle(S.draft.j.confs,d.v);render()},
+addDraft:d=>{const el=$app.querySelector("#cx");const v=clean(el.value,d.v);if(!v)return;const a=S.draft.j[d.v];if(!a.includes(v))a.push(v);render()},
+createJ:async()=>{const j=S.draft.j;const r=await addDoc(collection(db,"users",S.user.uid,"journals"),{name:j.name.trim(),pairs:j.pairs,confs:j.confs,discipline:false,createdAt:serverTimestamp()});await loadJournals();S.cur=r.id;go("journal")},
+openJ:d=>{S.cur=d.v;go("journal")},
+addJ:async d=>{const el=$app.querySelector(d.v==="pairs"?"#cx":"#cy");const v=clean(el.value,d.v),j=curJ();if(!v||!j)return;if(!(j[d.v]||[]).includes(v)){await updateDoc(doc(db,"users",S.user.uid,"journals",j.id),{[d.v]:arrayUnion(v)});(j[d.v]=j[d.v]||[]).push(v)}render()},
+logout:async()=>{await signOut(auth)},
+none:()=>{}
+};
+S.month=nowMonth();
+async function loadMonth(){const {y,m}=S.month,col=collection(db,"users",S.user.uid,"journals",S.cur,"trades");
+ const q=query(col,where("date",">=",ymd(y,m,1)),where("date","<=",ymd(y,m,new Date(y,m+1,0).getDate())));
+ const sn=await getDocs(q);S.trades=sn.docs.map(d=>({id:d.id,...d.data()}))}
+Object.assign(A,{
+ tab:d=>{S.tab=d.v;render()},
+ openDay:d=>{S.sheet={type:"day",d:d.v,view:"list"};render()},
+ closeSheet:()=>{S.sheet=null;S.err="";render()},
+ mon:async d=>{let y=S.month.y,mm=S.month.m+(+d.v);if(mm<0){mm=11;y--}if(mm>11){mm=0;y++}S.month={y,m:mm};await loadMonth();render()},
+ addTrade:()=>{const sh=S.sheet;sh.view="form";sh.id=null;sh.cd=null;sh.draft={pair:"",res:"gain",amt:"",c:[],cfa:"",note:""};render()},
+ editTrade:d=>{const x=S.trades.find(q=>q.id===d.v);if(!x)return;const sh=S.sheet;sh.view="form";sh.id=x.id;sh.cd=null;sh.draft={pair:x.pair||"",res:x.be?"be":(x.p<0?"loss":"gain"),amt:x.be?(x.m||""):Math.abs(x.p),c:(x.c||[]).slice(),cfa:x.cfa||"",note:x.t||""};render()},
+ backList:()=>{S.sheet.view="list";S.err="";render()},
+ tgP:d=>{const f=S.sheet.draft;f.pair=f.pair===d.v?"":d.v;render()},
+ tgC:d=>{toggle(S.sheet.draft.c,d.v);render()},
+ res:d=>{S.sheet.draft.res=d.v;render()},
+ saveTrade:async()=>{const sh=S.sheet,f=sh.draft,v=parseFloat(String(f.amt).replace(",","."));
+  if(f.res!=="be"&&!(v>0)){S.err=t("amtReq");return render()}
+  const num=isNaN(v)?0:v,data={date:sh.d,pair:f.pair,p:f.res==="be"?0:(f.res==="loss"?-num:num),be:f.res==="be",m:f.res==="be"?num:0,c:f.c,cfa:f.cfa.trim(),t:f.note.trim()};
+  const col=collection(db,"users",S.user.uid,"journals",S.cur,"trades");
+  if(sh.id)await updateDoc(doc(col,sh.id),data);else await addDoc(col,{...data,ts:serverTimestamp()});
+  await loadMonth();sh.view="list";S.err="";render()},
+ delTrade:async()=>{const sh=S.sheet;if(sh.cd!==sh.id){sh.cd=sh.id;return render()}
+  await deleteDoc(doc(db,"users",S.user.uid,"journals",S.cur,"trades",sh.id));await loadMonth();sh.view="list";sh.cd=null;render()},
+ openCfg:()=>{S.sheet={type:"cfg"};render()},
+ addDraft:d=>{const el=$app.querySelector("#cx"),a=S.draft.j[d.v];splitItems(el.value,d.v).forEach(v=>{if(!a.includes(v))a.push(v)});render()},
+ addJ:async d=>{const el=$app.querySelector(d.v==="pairs"?"#cx":"#cy"),vals=splitItems(el.value,d.v),j=curJ();if(!vals.length||!j)return;
+  const nw=vals.filter(v=>!(j[d.v]||[]).includes(v));
+  if(nw.length){await updateDoc(doc(db,"users",S.user.uid,"journals",j.id),{[d.v]:arrayUnion(...nw)});j[d.v]=[...(j[d.v]||[]),...nw]}render()},
+ rmItem:async d=>{const j=curJ();await updateDoc(doc(db,"users",S.user.uid,"journals",j.id),{[d.k]:arrayRemove(d.v)});j[d.k]=(j[d.k]||[]).filter(x=>x!==d.v);render()},
+ createJ:async()=>{const j=S.draft.j;const r=await addDoc(collection(db,"users",S.user.uid,"journals"),{name:j.name.trim(),pairs:j.pairs,confs:j.confs,discipline:false,createdAt:serverTimestamp()});await loadJournals();S.cur=r.id;S.tab="cal";S.sheet=null;S.month=nowMonth();await loadMonth();go("journal")},
+ openJ:async d=>{S.cur=d.v;S.tab="cal";S.sheet=null;S.month=nowMonth();await loadMonth();go("journal")}
+});
+function clean(s,kind){let v=String(s).trim().toUpperCase();v=kind==="pairs"?v.replace(/[^A-Z0-9/._-]/g,""):v.replace(/\s+/g," ");return v.slice(0,16)}
+
+$app.onclick=ev=>{if(ev.target.classList&&ev.target.classList.contains("sh")){S.sheet=null;S.err="";render();return}const b=ev.target.closest("[data-a]");if(!b||!A[b.dataset.a])return;run(()=>A[b.dataset.a](b.dataset))};
+$app.oninput=ev=>{const f=ev.target.dataset&&ev.target.dataset.f;if(f==="name")S.draft.name=ev.target.value;if(f==="jname"&&S.draft.j)S.draft.j.name=ev.target.value;if(S.sheet&&S.sheet.draft&&["amt","cfa","note"].includes(f))S.sheet.draft[f]=ev.target.value};
+
+/* ---------- Démarrage ---------- */
+getRedirectResult(auth).catch(e=>{S.err=e.code||String(e);if(S.screen==="welcome")render()});
+onAuthStateChanged(auth,async u=>{
+ S.user=u;
+ if(!u){S.profile=null;S.journals=[];return go(S.lang?"welcome":"lang")}
+ try{
+  const s=await getDoc(uref());
+  if(s.exists()){S.profile=s.data();if(S.profile.lang){S.lang=S.profile.lang;localStorage.setItem("bado_lang",S.lang)}await loadJournals();go("home")}
+  else{S.draft={name:u.displayName||"",why:[],markets:[]};go(S.lang?"name":"lang")}
+ }catch(e){S.err=e.code||e.message||String(e);go("error")}
+});
+render();
+if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script>
+</body>
+</html>
